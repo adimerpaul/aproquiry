@@ -10,9 +10,9 @@
                 Registrar nueva estimacion
             </button>
             <br>
-            <a href="<?=base_url()?>Aceptar/index/BLANCA" class="fa fa-cogs btn btn-sm btn-primary"> Quinua Blanca</a>
-            <a href="<?=base_url()?>Aceptar/index/ROJA" class="fa fa-cogs btn btn-sm btn-danger"> Quinua Roja</a>
-            <a href="<?=base_url()?>Aceptar/index/NEGRA" class="fa fa-cogs btn btn-sm btn-warning"> Quinua Negra</a>
+            <a href="<?=base_url()?>Estimaciones/index/BLANCA" class="fa fa-cogs btn btn-sm btn-primary"> Quinua Blanca</a>
+            <a href="<?=base_url()?>Estimaciones/index/ROJA" class="fa fa-cogs btn btn-sm btn-danger"> Quinua Roja</a>
+            <a href="<?=base_url()?>Estimaciones/index/NEGRA" class="fa fa-cogs btn btn-sm btn-warning"> Quinua Negra</a>
 
 
             <!-- Modal -->
@@ -33,7 +33,7 @@
                                         <select name="idsocio" id="idsocio" class="form-control" required>
                                             <option value="">Seleccionar..</option>
                                             <?php
-                                            $query=$this->db->query("SELECT * FROM socio WHERE idsocio not in (SELECT idsocio FROM estimacion WHERE tipo='$tipo')");
+                                            $query=$this->db->query("SELECT * FROM socio WHERE idsocio not in (SELECT idsocio FROM estimacion )");
                                             foreach ($query->result() as $row){
                                                 echo "<option value='".$row->idsocio."'>".$row->nombreproductor."</option>
                                             ";
@@ -89,7 +89,7 @@
                 $query=$this->db->query("SELECT * 
                 FROM estimacion e INNER JOIN socio s ON e.idsocio=s.idsocio
                 INNER JOIN comunidad c ON c.idcomunidad=s.idcomunidad
-                where e.estado='CREADO'
+                where e.estado='CREADO' AND tipo='$tipo'
                 ORDER BY c.nombre");
                 foreach ($query->result() as $row){
                     $c=$c+1;
